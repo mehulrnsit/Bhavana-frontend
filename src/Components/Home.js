@@ -122,7 +122,8 @@ const Home = () => {
     navigate("/")
   }
 
-  const handleSubmission = () => {
+  const handleSubmission = (e) => {
+    
     var formdata = new FormData();
     formdata.append("audioFile", selectedFile);
     setLoad(true);
@@ -318,9 +319,9 @@ const Home = () => {
 									<Button variant="contained" onClick={handleRemove} style={{margin:"20px 37%",backgroundColor:"black"}}>
                   Remove File
                 </Button>
-                <Button variant="contained" onClick={handleSubmission} style={{margin:"20px 37%"}}>
+                {load === false ? <Button variant="contained" onClick={(e) => handleSubmission(e)} style={{margin:"20px 37%"}}>
                   Get Analysis
-                </Button>
+                </Button> : <></>}
               </Box>
             ) : (
               <Box
