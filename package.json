@@ -1,7 +1,8 @@
 {
   "name": "bhavana",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://mehulrnsit.github.io/Bhavana-frontend",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -15,16 +16,18 @@
     "canvasjs": "^1.8.3",
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
+    "gh-pages": "^4.0.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "request": "^2.88.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
