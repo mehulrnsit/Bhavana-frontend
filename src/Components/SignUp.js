@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -62,7 +60,7 @@ const SignUp = () => {
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       const res = response.data;
-      if(res == "Success"){
+      if(res === "Success"){
         alert("User Signed Up");
         navigate("/home");
       }

@@ -59,7 +59,7 @@ const Main = () => {
       </div>
       <Box
         style={{
-          minHeight: "600px",
+          minHeight: "650px",
           color: "white",
           backgroundImage:
             "linear-gradient(to right top, #370519, #57003a, #6d0c6a, #6b2ea7, #1254eb)",

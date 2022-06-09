@@ -56,7 +56,7 @@ const Login = () => {
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       const res = response.data;
-      if(res == "Success")
+      if(res === "Success")
       {
         navigate("/home")
       }
