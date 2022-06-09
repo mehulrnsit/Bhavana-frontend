@@ -91,17 +91,21 @@ const Home = () => {
     }]
   }
 
+  
+
   useEffect(() => {
-    
+    const goToMain = () => {
+      navigate("/");
+    }
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     console.log(loggedInUser["email"])
     if (!loggedInUser) {
-     navigate("/");
+     goToMain();
     }
     else{
       setUsername(loggedInUser.email)
     }
-  }, [])
+  },[])// eslint-disable-line react-hooks/exhaustive-deps
   
 
   const changeHandler = (event) => {
