@@ -30,7 +30,7 @@ const Home = () => {
   const [showOutput,setShowOutput] = useState(false);
   const [username,setUsername] = useState();
   const [load,setLoad] = useState(false);
-  let navigate = useNavigate();
+  
   
   const options = {
     exportEnabled: false,
@@ -92,6 +92,7 @@ const Home = () => {
   }
 
   useEffect(() => {
+    let navigate = useNavigate();
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     console.log(loggedInUser["email"])
     if (!loggedInUser) {
@@ -118,6 +119,7 @@ const Home = () => {
 	}
 
   const handleLogout = () => {
+    let navigate = useNavigate();
     localStorage.clear();
     navigate("/")
   }
