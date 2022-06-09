@@ -15,6 +15,11 @@ const App = () => {
             element={<Main/>}
           />
           <Route
+            key={"main"}
+            path={"/"}
+            element={<Main/>}
+          />
+          <Route
             key={"login"}
             path={"/login"}
             element={<Login/>}
