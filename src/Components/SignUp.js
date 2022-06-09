@@ -62,7 +62,7 @@ const SignUp = () => {
       const res = response.data;
       if(res === "Success"){
         alert("User Signed Up");
-        navigate("/home");
+        navigate("/login");
       }
     })
     .catch(function (error) {

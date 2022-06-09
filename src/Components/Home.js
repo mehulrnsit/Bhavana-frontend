@@ -10,14 +10,98 @@ import {
   Grid,
 } from "@mui/material";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import FormData from "form-data";
 import { FiDownload } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import CanvasJSReact from "./canvasjs.react";
+import { Spinner } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Home = () => {
   const [selectedFile, setSelectedFile] = useState();
   const [isSelected, setIsSelected] = useState(false);
+  const [combinedPoints,setCombinedPoints] = useState([]);
+  const [textPoints,setTextPoints] = useState([]);
+  const [voicePoints,setVoicePoints] = useState([]);
+  const [showOutput,setShowOutput] = useState(false);
+  const [username,setUsername] = useState();
+  const [load,setLoad] = useState(false);
+  let navigate = useNavigate();
+  
+  const options = {
+    exportEnabled: false,
+    animationEnabled: true,
+    backgroundColor: "rgb(192 123 170)",
+    title: {
+      text: "Combined Emotion Analysis",
+      color:"white"
+    },
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      showInLegend: "true",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}",
+      dataPoints: combinedPoints
+    }]
+  }
+
+  const options_txt = {
+    exportEnabled: false,
+    animationEnabled: true,
+    backgroundColor: "rgb(192 123 170)",
+    title: {
+      text: "Text Emotion Analysis",
+      color:"white"
+    },
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      showInLegend: "true",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}",
+      dataPoints: textPoints
+    }]
+  }
+
+  const options_voice = {
+    exportEnabled: false,
+    animationEnabled: true,
+    backgroundColor: "rgb(192 123 170)",
+    title: {
+      text: "Voice Emotion Analysis",
+    },
+    data: [{
+      type: "pie",
+      startAngle: 75,
+      toolTipContent: "<b>{label}</b>: {y}%",
+      showInLegend: "true",
+      legendText: "{label}",
+      indexLabelFontSize: 16,
+      indexLabel: "{label} - {y}",
+      dataPoints: voicePoints
+    }]
+  }
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    console.log(loggedInUser["email"])
+    if (!loggedInUser) {
+     navigate("/");
+    }
+    else{
+      setUsername(loggedInUser.email)
+    }
+  }, [])
+  
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -27,12 +111,25 @@ const Home = () => {
 	const handleRemove = () => {
 		setSelectedFile();
 		setIsSelected(false);
+    setShowOutput(false);
+    setCombinedPoints([]);
+    setVoicePoints([]);
+    setTextPoints([]);
 	}
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/")
+  }
 
   const handleSubmission = () => {
     var formdata = new FormData();
     formdata.append("audioFile", selectedFile);
-
+    setLoad(true);
+    setCombinedPoints([]);
+    setVoicePoints([]);
+    setTextPoints([]);
+    setShowOutput(false);
     var requestOptions = {
       method: "POST",
       body: formdata,
@@ -44,9 +141,54 @@ const Home = () => {
       requestOptions
     )
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        const resultData = result;
+        const jsonData = JSON.parse(resultData);
+        // console.log(jsonData["predicted_combined_map"]);
+        const combined_data = jsonData["predicted_combined_map"];
+        const text_data = jsonData["predicted_text_map"]
+        const voice_data = jsonData["predicted_voice_map"];
+
+        const text_points = [
+          { y: text_data["Angry"], label: "Angry" },
+          
+          { y: text_data["Fear"], label: "Fear" },
+          { y: text_data["Happy"], label: "Happy" },
+          
+          { y: text_data["Sad"], label: "Sad" },
+         
+          { y: text_data["Surprise"], label: "Surprise" }
+        ]
+        setTextPoints(text_points);
+        const points = [
+          { y: combined_data["Angry"], label: "Angry" },
+          { y: combined_data["Disgust"], label: "Disgust" },
+          { y: combined_data["Fear"], label: "Fear" },
+          { y: combined_data["Happy"], label: "Happy" },
+          { y: combined_data["Neutral"], label: "Neutral" },
+          { y: combined_data["Sad"], label: "Sad" },
+          
+          { y: combined_data["Surprise"], label: "Surprise" }
+        ]
+        setCombinedPoints(points)
+        
+        const voice_points = [
+          { y: voice_data["Angry"], label: "Angry" },
+          { y: voice_data["Disgust"], label: "Disgust" },
+          { y: voice_data["Fear"], label: "Fear" },
+          { y: voice_data["Happy"], label: "Happy" },
+          { y: voice_data["Neutral"], label: "Neutral" },
+          { y: voice_data["Sad"], label: "Sad" },
+          { y: voice_data["Surprise"], label: "Surprise" }
+        ]
+        setVoicePoints(voice_points)
+        setLoad(false);
+        setShowOutput(true);
+      
+      })
       .catch((error) => console.log("error", error));
   };
+
 
   return (
     <>
@@ -73,14 +215,17 @@ const Home = () => {
             BHAVANA
           </Typography>
           <Stack direction="row" spacing={2}>
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Typography variant="h6" style={{color:"white",margin:"1px 0"}}>{username}</Typography>
+            {/* <Link to="/" style={{ textDecoration: "none", color: "white" }}> */}
               <Button
                 color="inherit"
-                style={{ fontSize: "15px", fontWeight: "600" }}
+                style={{ fontSize: "15px", fontWeight: "600" ,color:"white"}}
+                onClick={handleLogout}
               >
                 Logout
               </Button>
-            </Link>
+              
+            {/* </Link> */}
           </Stack>
         </Toolbar>
       </AppBar>
@@ -192,18 +337,35 @@ const Home = () => {
                     margin: "50px 35%",
                   }}
                 />
-                {/* <p>Select a file to show details</p> */}
                 <Button variant="contained" component="label" color="primary" style={{margin:"20px 35%"}}>
                   {" "}
                   Upload a file
                   <input type="file"  name="file" onChange={changeHandler} hidden />
                 </Button>
-                {/* <input type="file" name="file" onChange={changeHandler} /> */}
+               
               </Box>
             )}
+
           </Grid>
+          {load === true ? <Grid item xs={12} style={{display:"flex",justifyContent:"center"}}><Spinner
+                    as="span"
+                    variant="light"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    animation="border" style={{margin:"auto 10px"}}/><Typography variant="h5" style={{color:"white",textAlign:"center",display:"inline"}}>Please Wait report is being generated....</Typography></Grid>:<></>}
+
         </Grid>
       </Box>
+      {showOutput === true ? <Box style={{backgroundColor:"rgb(192 123 170)",padding:"30px"}}>
+        <CanvasJSChart options = {options} />
+        <br></br>
+      <CanvasJSChart options = {options_txt}/>
+      <br></br>
+      <CanvasJSChart options = {options_voice}/>
+       <br></br>
+      </Box> : <></>}
+      
     </>
   );
 };

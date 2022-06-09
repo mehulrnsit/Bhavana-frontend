@@ -58,6 +58,7 @@ const Login = () => {
       const res = response.data;
       if(res === "Success")
       {
+        localStorage.setItem('user', data)
         navigate("/home")
       }
     })
