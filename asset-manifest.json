@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Bhavana-frontend/static/css/main.6e17eee4.css",
-    "main.js": "/Bhavana-frontend/static/js/main.d6ffbf86.js",
-    "static/media/Main.jpg": "/Bhavana-frontend/static/media/Main.529cd6269422d00d6985.jpg",
-    "static/media/svg.svg": "/Bhavana-frontend/static/media/svg.7a1c0807b8674a54fc25ec4b2007d18d.svg",
-    "index.html": "/Bhavana-frontend/index.html",
-    "main.6e17eee4.css.map": "/Bhavana-frontend/static/css/main.6e17eee4.css.map",
-    "main.d6ffbf86.js.map": "/Bhavana-frontend/static/js/main.d6ffbf86.js.map"
+    "main.css": "/static/css/main.6e17eee4.css",
+    "main.js": "/static/js/main.2c127742.js",
+    "static/media/Main.jpg": "/static/media/Main.529cd6269422d00d6985.jpg",
+    "static/media/svg.svg": "/static/media/svg.7a1c0807b8674a54fc25ec4b2007d18d.svg",
+    "index.html": "/index.html",
+    "main.6e17eee4.css.map": "/static/css/main.6e17eee4.css.map",
+    "main.2c127742.js.map": "/static/js/main.2c127742.js.map"
   },
   "entrypoints": [
     "static/css/main.6e17eee4.css",
-    "static/js/main.d6ffbf86.js"
+    "static/js/main.2c127742.js"
   ]
 }
