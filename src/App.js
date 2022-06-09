@@ -11,7 +11,7 @@ const App = () => {
         <Routes>
           <Route
             key={"main"}
-            path={"/"}
+            path={"/Bhavana-frontend"}
             element={<Main/>}
           />
           <Route
