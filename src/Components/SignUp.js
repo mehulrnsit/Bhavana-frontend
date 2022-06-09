@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -29,13 +31,46 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignUp = () => {
+  let navigate = useNavigate();
   const handleSubmit = (event) => {
+    const baseUrl = "https://bef1-49-207-193-208.in.ngrok.io/";
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const signUpData = new FormData(event.currentTarget);
+
+    const fName = signUpData.get("firstName");
+    const lName = signUpData.get("lastName"); 
+    const email = signUpData.get('email');
+    const password = signUpData.get('password');
+
+    var data = JSON.stringify({
+      "firstName": fName,
+      "lastName": lName,
+      "email": email,
+      "password": password
     });
+    
+    var config = {
+      method: 'post',
+      url: baseUrl + 'sign-up',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      const res = response.data;
+      if(res == "Success"){
+        alert("User Signed Up");
+        navigate("/home");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   };
 
   return (
