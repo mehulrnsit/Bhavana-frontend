@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,13 +12,16 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import image from "../Images/Main.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+
 // import request from "request";
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="white" align="center" {...props}>
       {"Copyright © "}
-      <Link color="inherit" href="/">
+      <Link to="/" style={{color:"white"}}>
         BHAVANA
       </Link>{" "}
       {new Date().getFullYear()}
@@ -170,8 +172,14 @@ const Login = () => {
                     variant="body2"
                     style={{ color: "white", textDecoration: "none" }}
                   >
-                    {"Don't have an account? Sign Up"}
+                    <Button variant="text" style={{ color: "white"}}>Don't have an account? Sign Up</Button>
                   </Link>
+                  {/* <Link to="/signup" style={{textDecoration:"none",color:"white"}}><Button
+                color="inherit"
+                style={{ fontSize: "15px", fontWeight: "600" }}
+              >
+                SignUp
+              </Button></Link> */}
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />
