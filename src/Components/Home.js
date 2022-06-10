@@ -13,7 +13,7 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 // import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FormData from "form-data";
-import { FiDownload } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import CanvasJSReact from "./canvasjs.react";
 import { Spinner } from 'react-bootstrap'
@@ -344,7 +344,7 @@ const Home = () => {
                   padding: "10px",
                 }}
               >
-                <FiDownload
+                <FiUpload
                   style={{
                     fontSize: "150px",
                     margin: "50px 35%",
