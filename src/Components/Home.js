@@ -115,6 +115,7 @@ const Home = () => {
 
 	const handleRemove = () => {
 		setSelectedFile();
+    setLoad(false);
 		setIsSelected(false);
     setShowOutput(false);
     setCombinedPoints([]);
@@ -193,7 +194,12 @@ const Home = () => {
         setShowOutput(true);
       
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        alert("Unable to reach server!");
+        setLoad(false);
+        
+      });
   };
 
 

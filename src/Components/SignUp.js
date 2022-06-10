@@ -64,8 +64,12 @@ const SignUp = () => {
         alert("User Signed Up");
         navigate("/login");
       }
+      else{
+        alert("User Already Exist");
+      }
     })
     .catch(function (error) {
+      alert("Unable to reach server!")
       console.log(error);
     });
 

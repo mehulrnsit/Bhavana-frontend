@@ -63,9 +63,13 @@ const Login = () => {
         localStorage.setItem('user', data)
         navigate("/home")
       }
+      else{
+        alert("Username or Password mismacthed");
+      }
     })
     .catch(function (error) {
       console.log(error);
+      alert("Unable to reach server");
     });    
   };
 
