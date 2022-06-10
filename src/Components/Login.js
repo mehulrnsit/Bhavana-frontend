@@ -166,7 +166,7 @@ const Login = () => {
               <Grid container>
                 <Grid item>
                   <Link
-                    href="/signup"
+                    to="/signup"
                     variant="body2"
                     style={{ color: "white", textDecoration: "none" }}
                   >
