@@ -31,7 +31,7 @@ const theme = createTheme();
 const SignUp = () => {
   let navigate = useNavigate();
   const handleSubmit = (event) => {
-    const baseUrl = "https://bef1-49-207-193-208.in.ngrok.io/";
+    const baseUrl = "https://a315-49-207-227-224.in.ngrok.io/";
     event.preventDefault();
     const signUpData = new FormData(event.currentTarget);
 
