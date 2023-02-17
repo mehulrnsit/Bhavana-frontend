@@ -36,6 +36,7 @@ const Login = () => {
   const baseUrl = "https://a315-49-207-227-224.in.ngrok.io/";
   const handleSubmit = (event) => {
     event.preventDefault();
+    navigate("/home")
     const loginData = new FormData(event.currentTarget);
     
     const email = loginData.get("email");
